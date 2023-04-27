@@ -1,9 +1,16 @@
-use crate::util::{Palette, size};
+use crate::util::size;
 use crate::util::size::tile_to_f32;
 use bevy::prelude::*;
 use bevy_text_mode::TextModePlugin;
+use graphics::palette::Palette;
+use crate::graphics::GraphicsPlugin;
+use crate::graphics::loading::LoadingPlugin;
+use crate::graphics::text::TextPlugin;
+use crate::title::TitlePlugin;
 
 mod util;
+mod title;
+mod graphics;
 
 #[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Hash, States)]
 pub enum GameState {
@@ -34,6 +41,8 @@ fn main() {
         )
         .add_state::<GameState>()
         .add_plugin(TextModePlugin)
+        .add_plugin(TitlePlugin)
+        .add_plugin(GraphicsPlugin)
         .add_startup_system(init)
         .run();
 }

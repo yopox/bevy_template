@@ -1,6 +1,3 @@
-use bevy::prelude::Color;
-use lazy_static::lazy_static;
-
 pub mod size {
     /// Tile size from the tileset
     const TILE_SIZE: usize = 8;
@@ -16,23 +13,25 @@ pub mod size {
     pub const fn tile_to_f32(tile: usize) -> f32 { (tile * TILE_SIZE) as f32 }
 }
 
-#[derive(Copy, Clone, Eq, PartialEq)]
-pub enum Palette {
-    Black = 0,
-    White,
-    Transparent,
+pub mod z_pos {
+    pub const BACKGROUND: f32 = 0.;
+    pub const TITLE_TEXT: f32 = 8.5;
+    pub const TRANSITION: f32 = 9.;
+    pub const GUI: f32 = 12.;
 }
 
-lazy_static! {
-    static ref COLOR_OF_PALETTE: [Color; 3] = [
-        Color::hex("#000000").unwrap(),
-        Color::hex("#FFFFFF").unwrap(),
-        Color::hex("#00000000").unwrap(),
-    ];
+pub mod transition {
+    use crate::util::size::HEIGHT;
+
+    pub const HALF_HEIGHT: usize = HEIGHT / 2 - 1;
+    pub const SPEED: u64 = 800;
 }
 
-impl Into<Color> for Palette {
-    fn into(self) -> Color {
-        COLOR_OF_PALETTE[self as usize]
-    }
+pub mod tweening {
+    pub const TRANSITION_OVER: u64 = 1;
+    pub const DELAY: u64 = 200;
+}
+
+pub mod misc {
+    pub const ANIMATION_INTERVAL: usize = 80;
 }
