@@ -5,8 +5,11 @@ use bevy_tweening::TweeningPlugin;
 use crate::graphics::animation::AnimationPlugin;
 use crate::graphics::loading::LoadingPlugin;
 use crate::graphics::palette::Palette;
+use crate::graphics::sprites::TILE;
 use crate::graphics::text::TextPlugin;
+use crate::graphics::tile::Rotation;
 use crate::graphics::transition::{end_transition, start_transition, TransitionPlugin};
+use crate::util;
 use crate::util::size::tile_to_f32;
 
 pub mod text;
@@ -14,6 +17,8 @@ pub mod loading;
 pub mod palette;
 pub mod transition;
 mod animation;
+mod tile;
+mod sprites;
 
 #[derive(Bundle, Debug, Default)]
 pub struct MainBundle {
@@ -59,6 +64,27 @@ pub fn sprite(
             ..default()
         },
         ..default()
+    }
+}
+
+pub fn sprite_from_tile (
+    builder: &mut ChildBuilder,
+    tiles: &[TILE],
+    atlas: Handle<TextureAtlas>,
+    palette: Vec<Palette>,
+    z: f32,
+) {
+    for &(x, y, i, bg, fg, rotation) in tiles {
+        builder.spawn(
+            sprite(
+                i, x, y, z,
+                palette[bg],
+                palette[fg],
+                rotation == Rotation::Flip,
+                rotation.into(),
+                atlas.clone(),
+            )
+        );
     }
 }
 
