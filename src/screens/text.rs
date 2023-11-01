@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use bevy::sprite::Anchor;
 
 use crate::GameState;
-use crate::graphics::{ScreenTransition, TextStyles};
+use crate::graphics::{ScreenTransition, text, TextStyles};
 use crate::screens::Fonts;
 use crate::util::{HALF_HEIGHT, HALF_WIDTH, z_pos};
 
@@ -42,20 +42,16 @@ fn update(
 
 fn enter(
     mut commands: Commands,
-    text: Res<SimpleText>,
+    simple_text: Res<SimpleText>,
     fonts: Res<Fonts>,
 ) {
     commands.insert_resource(Wait(4.));
 
-    commands
-        .spawn(Text2dBundle {
-            text: Text::from_section(&text.0, TextStyles::Basic.style(&fonts))
-                .with_alignment(TextAlignment::Center)
-            ,
-            text_anchor: Anchor::Center,
-            transform: Transform::from_xyz(HALF_WIDTH, HALF_HEIGHT, z_pos::GUI),
-            ..default()
-        })
+    text(
+        &mut commands, &fonts,
+        &simple_text.0, TextStyles::Basic,
+        Anchor::Center, (HALF_WIDTH, HALF_HEIGHT, z_pos::GUI)
+    )
         .insert(SimpleTextUI)
     ;
 }

@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use bevy::sprite::Anchor;
 
 use crate::GameState;
-use crate::graphics::{ScreenTransition, TextStyles};
+use crate::graphics::{ScreenTransition, text, TextStyles};
 use crate::music::{PlaySFXEvent, SFX};
 use crate::screens::{Fonts, Textures};
 use crate::util::{HALF_HEIGHT, HALF_WIDTH, z_pos};
@@ -60,35 +60,29 @@ fn enter(
     textures: Res<Textures>,
     fonts: Res<Fonts>,
 ) {
-    commands
-        .spawn(Text2dBundle {
-            text: Text::from_section("Game Title", TextStyles::Basic.style(&fonts)),
-            text_anchor: Anchor::Center,
-            transform: Transform::from_xyz(HALF_WIDTH, HALF_HEIGHT + 20., z_pos::GUI),
-            ..default()
-        })
+    text(
+        &mut commands, &fonts,
+        "Game Title", TextStyles::Basic,
+        Anchor::Center, (HALF_WIDTH, HALF_HEIGHT + 20., z_pos::GUI)
+    )
         .insert(Logo)
         .insert(TitleUI)
     ;
 
-    commands
-        .spawn(Text2dBundle {
-            text: Text::from_section("Press A", TextStyles::Basic.style(&fonts)),
-            text_anchor: Anchor::Center,
-            transform: Transform::from_xyz(HALF_WIDTH, 40., z_pos::GUI),
-            ..default()
-        })
+    text(
+        &mut commands, &fonts,
+        "Press A", TextStyles::Basic,
+        Anchor::Center, (HALF_WIDTH, 40., z_pos::GUI)
+    )
         .insert(PressStart)
         .insert(TitleUI)
     ;
 
-    commands
-        .spawn(Text2dBundle {
-            text: Text::from_section("by -, -, -", TextStyles::Basic.style(&fonts)),
-            text_anchor: Anchor::BottomCenter,
-            transform: Transform::from_xyz(HALF_WIDTH, 4., z_pos::GUI),
-            ..default()
-        })
+    text(
+        &mut commands, &fonts,
+        "by -, -, -", TextStyles::Basic,
+        Anchor::BottomCenter, (HALF_WIDTH, 4., z_pos::GUI)
+    )
         .insert(TitleUI)
     ;
 }

@@ -3,6 +3,7 @@ use bevy::prelude::*;
 
 pub use palette::Palette;
 pub use text::TextStyles;
+pub use text::text;
 pub use transition::ScreenTransition;
 
 mod palette;

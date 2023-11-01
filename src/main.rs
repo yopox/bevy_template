@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 
 use crate::entities::EntitiesPlugin;
+use crate::GameState::SimpleText;
 use crate::graphics::GraphicsPlugin;
 use crate::logic::LogicPlugin;
 use crate::music::{AudioPlugin, BGM};
