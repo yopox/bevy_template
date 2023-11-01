@@ -1,23 +1,20 @@
 use bevy::prelude::Color;
+use bevy::utils::HashMap;
 use lazy_static::lazy_static;
 
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Copy, Clone, Eq, PartialEq, Hash)]
 pub enum Palette {
-    Black = 0,
-    White,
-    Transparent,
+    Background,
 }
 
 impl Into<Color> for Palette {
     fn into(self) -> Color {
-        COLOR_OF_PALETTE[self as usize]
+        COLORS[&self]
     }
 }
 
 lazy_static! {
-    static ref COLOR_OF_PALETTE: [Color; 3] = [
-        Color::hex("#000000").unwrap(),
-        Color::hex("#FFFFFF").unwrap(),
-        Color::hex("#00000000").unwrap(),
-    ];
+    static ref COLORS: HashMap<Palette, Color> = HashMap::from([
+        (Palette::Background, Color::BLACK),
+    ]);
 }

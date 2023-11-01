@@ -1,6 +1,6 @@
 [package]
 name = "bevy_template"
-version = "0.1.0"
+version = "0.0.0"
 authors = ["yopox <yopoxdev@gmail.com>"]
 description = ""
 edition = "2021"
@@ -16,14 +16,16 @@ lto = true
 codegen-units = 1
 
 [dependencies]
-bevy = { version = "0.10", default-features = false, features = ["bevy_asset", "bevy_winit", "png", "x11"] }
-bevy_asset_loader = { version = "0.16", default-features = false, features = ["2d"] }
-bevy_common_assets = { version = "0.6", features = ["ron"] }
-bevy_text_mode = "0.1.1"
-bevy_tweening = "0.7"
+bevy = { version = "0.11", default-features = false, features = [
+    "bevy_audio", "bevy_asset", "bevy_pbr", "bevy_winit", "bevy_text", "png", "vorbis", "x11", "webgl2"
+] }
+bevy_asset_loader = { version = "0.17.0", default-features = false, features = ["2d"] }
+bevy_common_assets = { version = "0.7.0", features = ["ron"] }
 
 lazy_static = "1.4"
-strum = "0.24"
-strum_macros = "0.24"
+strum = "0.25.0"
+strum_macros = "0.25.2"
 
 rand = { version = "0.8", features = ["alloc"]}
+
+console_error_panic_hook = "0.1.7"
