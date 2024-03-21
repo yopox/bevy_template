@@ -24,7 +24,7 @@ impl Plugin for TitlePlugin {
 }
 
 fn update(
-    keys: Res<Input<KeyCode>>,
+    keys: Res<ButtonInput<KeyCode>>,
     mut transition: ResMut<ScreenTransition>,
     mut sfx: EventWriter<PlaySFXEvent>,
     mut logo: Query<&mut Transform, With<Logo>>,

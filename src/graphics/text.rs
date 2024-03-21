@@ -21,7 +21,7 @@ impl TextStyles {
     }
 }
 
-pub fn text<'w, 's, 'l>(commands: &'l mut Commands<'w, 's>, fonts: &Fonts, text: &str, style: TextStyles, anchor: Anchor, pos: (f32, f32, f32)) -> EntityCommands<'w, 's, 'l> {
+pub fn text<'a, 'b, 'c>(commands: &'a mut Commands<'b, 'c>, fonts: &Fonts, text: &str, style: TextStyles, anchor: Anchor, pos: (f32, f32, f32)) -> EntityCommands<'a> {
     commands
         .spawn(Text2dBundle {
             text: Text::from_section(text, style.style(fonts)),

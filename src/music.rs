@@ -1,6 +1,4 @@
 use bevy::app::App;
-use bevy::asset::HandleId;
-use bevy::audio::{PlaybackMode, Volume, VolumeLevel};
 use bevy::prelude::*;
 
 use crate::screens::Sounds;
@@ -87,7 +85,7 @@ fn update(
     let Some(sounds) = sounds else { return; };
 
     // SFX
-    for PlaySFXEvent(sfx) in sfx_event.iter() {
+    for PlaySFXEvent(sfx) in sfx_event.read() {
         // commands
         //     .spawn(AudioBundle {
         //         source: sfx.source(&sounds).clone(),
@@ -102,7 +100,7 @@ fn update(
     // BGM
     let Ok((e, mut sink, mut source)) = bgm.get_single_mut() else { return; };
 
-    for PlayBGMEvent(bgm) in bgm_event.iter() {
+    for PlayBGMEvent(bgm) in bgm_event.read() {
         if let Some(ref mut s) = sink {
             if !s.is_paused() { commands.insert_resource(FadeOut::to(*bgm)); }
         } else {

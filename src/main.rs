@@ -54,7 +54,7 @@ fn main() {
             })
         )
         .add_plugins((EntitiesPlugin, GraphicsPlugin, LogicPlugin, ScreensPlugin, AudioPlugin))
-        .add_state::<GameState>()
+        .init_state::<GameState>()
         .add_systems(Startup, init)
         .run();
 }
