@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use bevy::sprite::Anchor;
 
 use crate::GameState;
-use crate::graphics::{ScreenTransition, text, TextStyles};
+use crate::graphics::{LogicPos, ScreenTransition, text, TextStyles};
 use crate::music::{PlaySFXEvent, SFX};
 use crate::screens::{Fonts, Textures};
 use crate::util::{HALF_HEIGHT, HALF_WIDTH, z_pos};
@@ -27,16 +27,16 @@ fn update(
     keys: Res<ButtonInput<KeyCode>>,
     mut transition: ResMut<ScreenTransition>,
     mut sfx: EventWriter<PlaySFXEvent>,
-    mut logo: Query<&mut Transform, With<Logo>>,
+    mut logo: Query<&mut LogicPos, With<Logo>>,
     mut start: Query<&mut Visibility, With<PressStart>>,
     time: Res<Time>,
 ) {
     if let Ok(mut pos) = logo.get_single_mut() {
-        pos.translation.y = HALF_HEIGHT + 20. + time.elapsed_seconds().sin() * 5.;
+        pos.0.y = HALF_HEIGHT + 20. + time.elapsed_seconds().sin() * 2.;
     }
     if let Ok(mut vis) = start.get_single_mut() {
         vis.set_if_neq(
-            if (time.elapsed_seconds() as usize) % 2 == 1 { Visibility::Hidden }
+            if (time.elapsed_seconds() as usize) % 2 > 0 { Visibility::Hidden }
             else { Visibility::Inherited }
         );
     }

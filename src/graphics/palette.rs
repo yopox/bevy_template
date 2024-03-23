@@ -4,7 +4,7 @@ use lazy_static::lazy_static;
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash)]
 pub enum Palette {
-    Background,
+    WHITE, BLACK,
 }
 
 impl Into<Color> for Palette {
@@ -15,6 +15,7 @@ impl Into<Color> for Palette {
 
 lazy_static! {
     static ref COLORS: HashMap<Palette, Color> = HashMap::from([
-        (Palette::Background, Color::BLACK),
+        (Palette::WHITE, Color::hex("#B0AFA7").unwrap()),
+        (Palette::BLACK, Color::hex("#313028").unwrap()),
     ]);
 }

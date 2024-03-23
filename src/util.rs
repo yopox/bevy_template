@@ -3,9 +3,9 @@ use std::f32::consts::PI;
 use bevy::math::{Vec2, vec2};
 use bevy::prelude::{Res, State, States};
 
-pub const WIDTH: usize = 320;
+pub const WIDTH: usize = 400;
 pub const HALF_WIDTH: f32 = WIDTH as f32 / 2.;
-pub const HEIGHT: usize = 180;
+pub const HEIGHT: usize = 240;
 pub const HALF_HEIGHT: f32 = HEIGHT as f32 / 2.;
 
 pub const SCALE: f32 = 4.;

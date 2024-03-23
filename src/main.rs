@@ -1,7 +1,7 @@
 use bevy::prelude::*;
+use bevy::window::WindowResolution;
 
 use crate::entities::EntitiesPlugin;
-use crate::GameState::SimpleText;
 use crate::graphics::GraphicsPlugin;
 use crate::logic::LogicPlugin;
 use crate::music::{AudioPlugin, BGM};
@@ -42,10 +42,8 @@ fn main() {
             .set(ImagePlugin::default_nearest())
             .set(WindowPlugin {
                 primary_window: Some(Window {
-                    resolution: (
-                        WIDTH as f32 * SCALE,
-                        HEIGHT as f32 * SCALE,
-                    ).into(),
+                    resolution: WindowResolution::new(WIDTH as f32, HEIGHT as f32)
+                        .with_scale_factor_override(SCALE),
                     title: "bevy_template".to_string(),
                     canvas: Some("#bevy".to_owned()),
                     ..default()
@@ -63,7 +61,6 @@ fn init(mut commands: Commands) {
     commands
         .spawn(Camera2dBundle {
             transform: Transform {
-                scale: Vec3::new(1. / SCALE, 1. / SCALE, 1.),
                 translation: Vec3::new(HALF_WIDTH, HALF_HEIGHT, 100.),
                 ..default()
             },

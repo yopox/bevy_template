@@ -1,8 +1,11 @@
 use bevy::ecs::system::EntityCommands;
-use bevy::prelude::{Color, Commands, Text, Text2dBundle, Transform};
+use bevy::math::Vec3;
+use bevy::prelude::{Commands, Text, Text2dBundle};
 use bevy::sprite::Anchor;
 use bevy::text::TextStyle;
 
+use crate::graphics::Palette;
+use crate::graphics::pixel::LogicPos;
 use crate::screens::Fonts;
 
 pub enum TextStyles {
@@ -15,18 +18,19 @@ impl TextStyles {
             TextStyles::Basic => TextStyle {
                 font: fonts.absolute.clone(),
                 font_size: 18.0,
-                color: Color::WHITE,
+                color: Palette::BLACK.into(),
             },
         }
     }
 }
 
 pub fn text<'a, 'b, 'c>(commands: &'a mut Commands<'b, 'c>, fonts: &Fonts, text: &str, style: TextStyles, anchor: Anchor, pos: (f32, f32, f32)) -> EntityCommands<'a> {
-    commands
+    let mut e_c = commands
         .spawn(Text2dBundle {
             text: Text::from_section(text, style.style(fonts)),
             text_anchor: anchor,
-            transform: Transform::from_xyz(pos.0, pos.1, pos.2),
             ..Default::default()
-        })
+        });
+    e_c.insert(LogicPos(Vec3::new(pos.0, pos.1, pos.2)));
+    return e_c
 }
